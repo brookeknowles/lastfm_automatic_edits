@@ -1,16 +1,32 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from selenium import webdriver
+from selenium.webdriver import Keys
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# Open the browser to login
+s = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=s)
+driver.maximize_window()
+driver.get("https://www.last.fm/")
+driver.find_element(By.CLASS_NAME, "site-auth-control").send_keys(Keys.ENTER)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+# Ask for user details and login
+username = input("Enter last.fm username or email: ")
+password = input("Enter last.fm password: ")
+
+driver.find_element(By.ID, "id_username_or_email").send_keys(username)
+driver.find_element(By.ID, "id_password").send_keys(password)
+driver.find_element(By.NAME, "submit").send_keys(Keys.ENTER)
+
+
+# Navigate to automatic edits page
+driver.find_element(By.XPATH, "//a[contains(text(),'Settings')]").send_keys(Keys.ENTER)     # element not interactable error (probs need to hover over dropdown)
+
+
+# Find the delete button and delete just the first one
+
+# Close after finishing
+driver.close()

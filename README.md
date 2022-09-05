@@ -3,5 +3,5 @@
 Python script to automatically delete all automatic edit rules on Last.fm
 (does not work properly yet)
 
-Reuqirements:
+Requirements:
 - Must have a pro account

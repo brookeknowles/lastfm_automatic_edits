@@ -1,5 +1,9 @@
+import time
+
+from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 from selenium.webdriver import Keys, ActionChains
+from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -10,8 +14,7 @@ import re
 s = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=s)
 driver.maximize_window()
-driver.get("https://www.last.fm/")
-driver.find_element(By.CLASS_NAME, "site-auth-control").send_keys(Keys.ENTER)
+driver.get("https://www.last.fm/login")
 
 
 # Ask for user details and login
@@ -38,8 +41,8 @@ delete_button.click()
 
 
 # below driver can't locate the button
-driver.implicitly_wait(10)
-driver.find_element(By.XPATH, "/html/body/div[11]/div[1]/div/div[2]/ul/li[2]/button").click()
+# XPath = "/html/body/div[11]/div[1]/div/div[2]/ul/li[2]/button"
+
 
 # Close after finishing
 driver.close()
